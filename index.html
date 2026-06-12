@@ -33,6 +33,20 @@
     .theorem-title { font-family: 'Google Sans', 'Noto Sans', sans-serif; font-size: 1.25rem; font-weight: 700; color: #363636; margin-bottom: 0.75rem; }
     pre.bibtex { background: #f6f8fa; border-radius: 8px; padding: 1rem; font-size: 0.85rem; overflow-x: auto; }
     footer.footer { padding: 2rem 1.5rem; }
+
+    /* Mobile: keep long equations from widening the page */
+    mjx-container { max-width: 100%; }
+    mjx-container[display="true"] {
+      display: block !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 4px 0;
+    }
+    html, body { overflow-x: hidden; }
+    @media (max-width: 768px) {
+      .publication-title { font-size: 1.6rem !important; }
+      mjx-container[display="true"] { font-size: 95% !important; }
+    }
   </style>
 </head>
 <body>
