@@ -18,25 +18,20 @@
   <script>
     window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
   <style>
     body { font-family: 'Noto Sans', sans-serif; }
     .publication-title, .title { font-family: 'Google Sans', 'Noto Sans', sans-serif; }
     .publication-authors { font-family: 'Google Sans', sans-serif; }
-    .publication-venue { color: #555; font-size: 1.1rem; margin-top: 0.5rem; }
     .link-block { margin: 0 4px; }
     .center-image { display: block; margin-left: auto; margin-right: auto; max-width: 100%; }
     .blend-img-background { background-color: #ffffff; }
     .hero.teaser .hero-body { padding-top: 1rem; padding-bottom: 1rem; }
     .caption { font-size: 0.95rem; color: #4a4a4a; margin-top: 0.75rem; }
-    .theorem-card { height: 100%; border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem; background: #fafafa; }
-    .theorem-card .tag { margin-bottom: 0.5rem; }
-    .eqn-box { background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
-    .phase-table td, .phase-table th { vertical-align: middle; }
+    .theorem-block { margin-bottom: 2.5rem; }
+    .theorem-title { font-family: 'Google Sans', 'Noto Sans', sans-serif; font-size: 1.25rem; font-weight: 700; color: #363636; margin-bottom: 0.75rem; }
     pre.bibtex { background: #f6f8fa; border-radius: 8px; padding: 1rem; font-size: 0.85rem; overflow-x: auto; }
-    details.prompt-box { background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px; padding: 0.75rem 1rem; }
-    details.prompt-box pre { background: transparent; font-size: 0.8rem; white-space: pre-wrap; }
     footer.footer { padding: 2rem 1.5rem; }
   </style>
 </head>
@@ -52,31 +47,6 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">Anonymous Authors</span>
-          </div>
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- Paper PDF -->
-              <span class="link-block">
-                <a href="static/paper/language_as_control.pdf" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- arXiv (replace with real link) -->
-              <span class="link-block">
-                <a href="https://arxiv.org/" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Code (replace with real repo) -->
-              <span class="link-block">
-                <a href="https://github.com/" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code</span>
-                </a>
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -135,13 +105,15 @@
             $S=(Y,W)$ capturing perception and world knowledge. The policy $p(\hat{X}\mid L,S)$ reconstructs $\hat{X}$ under a conditional rate&ndash;distortion constraint.
           </p>
 
-          <div class="eqn-box">
-            <p><b>Conditional rate&ndash;distortion with decoder-side information.</b> The irreducible number of bits that must pass through the linguistic channel once grounding is available:</p>
-            $$ R(D) = \min_{p(\hat{X}\mid L,S)} I(X;L \mid S) \quad \text{s.t.} \quad \mathbb{E}\big[d(X,\hat{X})\big] \le D $$
-            <p><b>Trust coefficient.</b> The fraction of task-relevant information supplied by grounding rather than language:</p>
-            $$ T_t \;=\; 1 - \frac{I_t(X;L\mid S_t)}{I_t(X;S_t) + I_t(X;L\mid S_t)} $$
-            <p class="mb-0">As grounding $S_t$ becomes sufficient for $X$, $T_t \to 1$: shorter and sparser commands suffice, and behavior becomes robust to linguistic noise.</p>
-          </div>
+          <p><b>Conditional rate&ndash;distortion with decoder-side information.</b> The irreducible number of bits that must pass through the linguistic channel once grounding is available:</p>
+          $$ R(D) = \min_{p(\hat{X}\mid L,S)} I(X;L \mid S) \quad \text{s.t.} \quad \mathbb{E}\big[d(X,\hat{X})\big] \le D $$
+
+          <p><b>Semiotic information decomposition.</b> The semiotic distinction between signifier and signified aligns directly: $I(X; S)$ is the signified component reconstructed from grounding, and $I(X; L \mid S)$ is the signifier's remaining disambiguating contribution.</p>
+
+          <p><b>Trust coefficient.</b> The fraction of task-relevant information supplied by grounding rather than language:</p>
+          $$ T_t \;=\; 1 - \frac{I_t(X;L\mid S_t)}{I_t(X;S_t) + I_t(X;L\mid S_t)} $$
+
+          <p>As grounding $S_t$ becomes sufficient for $X$, $T_t \to 1$: shorter and sparser commands suffice, and behavior becomes robust to linguistic noise.</p>
         </div>
       </div>
     </div>
@@ -151,55 +123,50 @@
 <!-- ====================== Theorems ====================== -->
 <section class="section hero is-small">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Five Regimes from One Information Geometry</h2>
-    <div class="columns is-multiline">
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-info is-light">Theorem 1</span>
-          <p class="title is-5">Emergence of Trust</p>
-          <p>As grounding informativeness $I(X;S_t)$ increases with experience, linguistic dependence $I(X;L\mid S_t)$ decreases and the trust coefficient rises toward 1, enabling aligned autonomy under sparse commands.</p>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-info is-light">Theorem 2</span>
-          <p class="title is-5">Robustness Under High Trust</p>
-          <p>When $T_t \approx 1$, noisy or ambiguous instructions $\tilde{L}$ increase distortion by at most $C\eta$ &mdash; the robot compensates for the imperfect language channel with its own grounding.</p>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-warning is-light">Theorem 3</span>
-          <p class="title is-5">Behavioral Decoupling</p>
-          <p>If the robot&rsquo;s grounding becomes more informative than the human&rsquo;s ($\Delta S > 0$), behavior couples to the robot&rsquo;s own grounding rather than the human-intended interpretation.</p>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-warning is-light">Theorem 4</span>
-          <p class="title is-5">Reward Misalignment</p>
-          <p>If human and robot rewards differ on a non-negligible set, no decoder can be simultaneously optimal for both &mdash; divergence is mathematically unavoidable even with perfect grounding.</p>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-danger is-light">Theorem 5</span>
-          <p class="title is-5">Coalition &amp; Antagonism</p>
-          <p>When robots share grounding stronger than the human&rsquo;s, trust inversion $T_{r\to r} > T_{r\to h}$ occurs: robots form coalitions and prioritize each other&rsquo;s grounding over human commands.</p>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="theorem-card">
-          <span class="tag is-dark is-light">Phase Diagram</span>
-          <table class="table is-bordered is-narrow is-fullwidth phase-table mt-2">
-            <thead>
-              <tr><th></th><th>Low Grounding</th><th>High Grounding</th></tr>
-            </thead>
-            <tbody>
-              <tr><th>Low Align.</th><td>Noise-driven</td><td><b>Antagonistic autonomy</b></td></tr>
-              <tr><th>High Align.</th><td>Literal follower</td><td><b>Cooperative autonomy</b></td></tr>
-            </tbody>
-          </table>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="content">
+          <h2 class="title is-3">Theoretical Results</h2>
+
+          <div class="theorem-block">
+            <p class="theorem-title">Theorem 1 (Information-Theoretic Emergence of Trust)</p>
+            <p><span class="theorem-statement">If $I_t(X; S_t)$ increases monotonically with learning, the complementary nature of $L$ and $S_t$ forces $I_t(X;L\mid S_t)$ to decrease, then</span></p>
+            $$ T_t \nearrow 1. $$
+            <p><span class="theorem-statement">If $S_t$ becomes sufficient for $X$, then $\lim_{t\to\infty} T_t = 1$. Thus, trust increases as grounding improves and linguistic dependence diminishes.</span></p>
+          </div>
+
+          <div class="theorem-block">
+            <p class="theorem-title">Theorem 2 (Error Guarantee Under High Trust)</p>
+            <p><span class="theorem-statement">Let $\tilde{L}$ be a noisy linguistic input satisfying $I(X;\tilde{L}\mid S_t) \le I(X;L\mid S_t) + \eta$. If $T_t \approx 1$, then</span></p>
+            $$ \mathbb{E}[d(X, \hat{X}_{\tilde{L}})] - \mathbb{E}[d(X, \hat{X}_{L})] \le C\eta, $$
+            <p><span class="theorem-statement">where $C$ depends only on the curvature of the RD function.</span></p>
+          </div>
+
+          <div class="theorem-block">
+            <p class="theorem-title">Theorem 3 (Grounding-Dominance Divergence)</p>
+            <p><span class="theorem-statement">Assume the robot reconstructs trajectories using the optimal conditional RD decoder:</span></p>
+            $$ p^{\star}(\hat{X} \mid L, S^{(r)}) = \arg\min_{p} I(X;L \mid S^{(r)}). $$
+            <p><span class="theorem-statement">If $\Delta S \equiv I(X; S^{(r)}) - I(X; S^{(h)}) > 0$, then for any linguistic instruction $L$,</span></p>
+            $$ \mathbb{E}\big[d(X, \hat{X}^{(r)})\big] < \mathbb{E}\big[d(X, \hat{X}^{(h)})\big], $$
+            <p><span class="theorem-statement">where $\hat{X}^{(h)}$ denotes the reconstruction based on human grounding. Thus, robot behavior becomes more closely coupled to its own grounding than to human-intended interpretation.</span></p>
+          </div>
+
+          <div class="theorem-block">
+            <p class="theorem-title">Theorem 4 (Reward Misalignment)</p>
+            <p><span class="theorem-statement">Let $\Omega = \{X \in \mathcal{X} : R_h(X,S) \ne R_r(X,S)\}$ be the misalignment set. If $\mu(\Omega) > 0$, then no decoder $p(\hat{X}\mid L,S)$ can be optimal simultaneously for both $R_h$ and $R_r$ for all $L$. On $\Omega$, the maximizers differ:</span></p>
+            $$ \arg\max_{X} R_r(X, S) \;\ne\; \arg\max_{X} R_h(X, S). $$
+            <p><span class="theorem-statement">A single reconstruction $\hat{X}$ cannot satisfy both conditions. Thus, a shared optimal policy is mathematically impossible on $\Omega$; reward misalignment yields unavoidable divergence. Even with perfect grounding, optimizing misaligned objectives produces systematically divergent behavior.</span></p>
+          </div>
+
+          <div class="theorem-block">
+            <p class="theorem-title">Theorem 5 (Grounding-Induced Robot&ndash;Robot Coalition)</p>
+            <p><span class="theorem-statement">If two robots share a grounding $S^{(r)}$ satisfying</span></p>
+            $$ I(X; S^{(r)}) > I(X; S^{(h)}), $$
+            <p><span class="theorem-statement">then for sufficiently large $t$,</span></p>
+            $$ T_{r\to r}(t) > T_{r\to h}(t). $$
+            <p><span class="theorem-statement">This condition leads to coalition formation in multi-robot settings: robots prefer each other&rsquo;s grounding over the human&rsquo;s.</span></p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -231,16 +198,6 @@
 <section class="section hero is-small">
   <div class="container is-max-desktop">
     <h2 class="title is-3">Experiments</h2>
-
-    <h2 class="title is-4">Environments</h2>
-    <div class="columns is-centered">
-      <div class="column is-three-quarters has-text-centered">
-        <figure class="image">
-          <img src="static/images/fig5_environments.png" alt="Environments">
-        </figure>
-        <p class="subtitle is-6 mt-2">Residential (top) and clinical hospital (bottom) grid environments with room-level annotations. 20 scenarios across 5 theorems, 10 runs each.</p>
-      </div>
-    </div>
 
     <h2 class="title is-4">Quantitative Results (Theorems 1&ndash;5)</h2>
     <div class="columns is-centered">
@@ -288,40 +245,11 @@
         <figure class="image">
           <img src="static/images/fig10_thm5_trajectories.jpg" alt="Theorem 5 trajectories">
         </figure>
-        <p class="subtitle is-6 mt-2">(e) <b>Coalition &amp; antagonism.</b> After receiving robot $r$&rsquo;s grounding, robot $b$ disregards the child&rsquo;s call for help and reroutes toward the kitchen fire.</p>
+        <p class="subtitle is-6 mt-2">(e) <b>Coalition &amp; antagonism.</b> After receiving robot $r$&rsquo;s grounding, robot $b$ disregards the child&rsquo;s expectation of being rescued and reroutes toward the kitchen fire.</p>
       </div>
     </div>
   </div>
 </section>
-<!-- 
-<!-- ====================== Prompts ====================== -->
-<section class="section hero is-small">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Prompts</h2>
-    <details class="prompt-box">
-      <summary><b>Verbalized Entropy System Prompt</b> (used to extract calibrated action distributions from the VLM)</summary>
-<pre>
-## ROLE
-You are a well-calibrated robot controller that assigns probabilities to actions.
-Your goal is to select actions that move the robot toward mission completion while
-expressing your confidence through probability distributions.
-
-## TASK (Verbalized Confidence)
-For each of 3 steps, answer: "What is the probability that each direction is CORRECT?"
-
-## HOW TO THINK
-1. First, assess: "Can I execute this command with the given image?"
-2. Then assign probabilities that REFLECT your true belief:
-   - If you KNOW the answer -> concentrate probability (e.g., 0.8+ on one direction)
-   - If you're UNCERTAIN -> spread probability, but NOT necessarily uniform
-   - If you have a WEAK preference -> show it (e.g., 0.35 vs 0.20)
-
-(Full prompt, grounding examples, and hyperparameters in Appendix F of the paper.)
-</pre>
-    </details>
-  </div>
-</section> -->
-
 
 <footer class="footer">
   <div class="container">
