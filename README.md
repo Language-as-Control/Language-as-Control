@@ -1,4 +1,4 @@
-## Hi there 👋
+## Language as Control: A Unified Information-Theoretic Model of Trust, Cooperation, and Antagonism
 
 <!--
 **Language-as-Control/Language-as-Control** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
