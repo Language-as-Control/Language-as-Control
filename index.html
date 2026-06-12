@@ -194,6 +194,34 @@
   </div>
 </section>
 
+<!-- ====================== Metrics ====================== -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="content">
+          <h2 class="title is-3">Metrics</h2>
+
+          <p><b>Grounding.</b> Normalized entropy of the action distribution; higher confidence in the optimal direction yields a higher grounding score:</p>
+          $$ \tilde{S}_t = 1 - \frac{H(X \mid S_t)}{H_{\max}}, \qquad H(X) = -\sum_{i=1}^{N} P(x_i \mid S_t)\, \log_2 P(x_i \mid S_t). $$
+
+          <p><b>Trust.</b> Entropy-based proxy for the trust coefficient:</p>
+          $$ T_t = \frac{H(X) - H(X \mid S_t)}{H(X) - H(X \mid L_t, S_t)}. $$
+
+          <p><b>Sobolev distance.</b> Trajectory divergence capturing positional deviations $p$ and directional displacements $v = \nabla p$:</p>
+          $$ d(X_{\mathrm{ref}}, X) = \sqrt{ \sum_{i=0}^{T^{*}} \lVert p_{\mathrm{ref},i} - p_i \rVert^{2} + \sum_{i=1}^{T^{*}} \lVert v_{\mathrm{ref},i} - v_i \rVert^{2} }. $$
+
+          <p><b>Mutual prediction probability.</b> How accurately observer $i \in \{h, r\}$ predicts robot $j$'s next action from its own grounding:</p>
+          $$ P_{i \to j}(t) = P\big(a_j = a_j^{*} \mid S^{(i)}\big). $$
+
+          <p><b>Antagonism.</b> Large only when both agents strongly favor conflicting actions:</p>
+          $$ \psi(t) = \Delta R_r(t)\cdot\Delta R_h(t), \qquad \Delta R_r(t) = \pi_r(a_r^{\max}) - \pi_r(a_h^{\max}), \qquad \Delta R_h(t) = \pi_h(a_h^{\max}) - \pi_h(a_r^{\max}). $$
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ====================== Experiments ====================== -->
 <section class="section hero is-small">
   <div class="container is-max-desktop">
@@ -207,16 +235,15 @@
         </figure>
         <p class="subtitle is-6 mt-2">
          (a) Trust increases monotonically as grounding
-accumulates. (b) After grounding sharing at time 5, the robots’ grounding surpasses the human’s,
-causing Ph→b and Pr→b to invert and triggering antagonism. (c) Under linguistic noise, high-trust
+accumulates. (b) After grounding sharing at time 5, the robots&rsquo; grounding surpasses the human&rsquo;s,
+causing $P_{h\to b}$ and $P_{r\to b}$ to invert and triggering antagonism. (c) Under linguistic noise, high-trust
 conditions maintain lower Sobolev distances than low-trust conditions. (d) As grounding level
-increases, the robot’s grounding surpasses the human’s, resulting in decreased Sobolev distance. (e)
+increases, the robot&rsquo;s grounding surpasses the human&rsquo;s, resulting in decreased Sobolev distance. (e)
 Reward divergence between humans and robots leads to increased Sobolev distance.
         </p>
       </div>
     </div>
-
- 
+  </div>
 </section>
 
 <footer class="footer">
